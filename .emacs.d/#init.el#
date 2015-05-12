@@ -20,12 +20,6 @@
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/conf") ; 設定ファイルがあるディレクトリを指定
 
-;; C-mにnewline-and-indentを割り当てる。
-(global-set-key (kbd "C-m") 'newline-and-indent)
-
-;; C-2で縦に画面分割できるように割り当てる
-(global-set-key (kbd "C-2") 'newline-and-indent)
-
 ;; 画面移動を↓で可能に
 (global-set-key (kbd "C-c <left>")  'windmove-left)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
