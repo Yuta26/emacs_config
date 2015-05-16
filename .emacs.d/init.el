@@ -20,12 +20,6 @@
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/conf") ; 設定ファイルがあるディレクトリを指定
 
-;; C-mにnewline-and-indentを割り当てる。
-(global-set-key (kbd "C-m") 'newline-and-indent)
-
-;; C-2で縦に画面分割できるように割り当てる
-(global-set-key (kbd "C-2") 'newline-and-indent)
-
 ;; 画面移動を↓で可能に
 (global-set-key (kbd "C-c <left>")  'windmove-left)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
@@ -214,3 +208,57 @@
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-hook 'js2-mode-hock 'js-indent-hock)
+
+;; *.~ とかのバックアップファイルを作らない
+(setq make-backup-files nil)
+;; .#* とかのバックアップファイルを作らない
+(setq auto-save-default nil)
+
+;; メニューバーを非表示
+(menu-bar-mode 0)
+;; ツールバーを非表示
+(tool-bar-mode 0)
+
+;; 画面3分割
+(defun split-window-vertically-n (num_wins)
+  (interactive "p")
+  (if (= num_wins 2)
+      (split-window-vertically)
+    (progn
+      (split-window-vertically
+       (- (window-height) (/ (window-height) num_wins)))
+      (split-window-vertically-n (- num_wins 1)))))
+(defun split-window-horizontally-n (num_wins)
+  (interactive "p")
+  (if (= num_wins 2)
+      (split-window-horizontally)
+    (progn
+      (split-window-horizontally
+       (- (window-width) (/ (window-width) num_wins)))
+      (split-window-horizontally-n (- num_wins 1)))))
+(global-set-key "\C-x@" '(lambda ()
+                           (interactive)
+                           (split-window-vertically-n 3)))
+(global-set-key "\C-x4" '(lambda ()
+                           (interactive)
+                           (split-window-horizontally-n 3)))
+
+;; color-moccurの設定
+(when (require 'color-moccur nil t)
+  ;; M-oにoccur-by-moccurを割り当て
+  (define-key global-map (kbd "M-o") 'occur-by-moccur)
+  ;; スペース区切りでAND検索
+  (setq moccur-split-word t)
+  ;; ディレクトリ検索のとき除外するファイル
+  (add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
+  (add-to-list 'dmoccur-exclusion-mask "^#.+#$")
+  ;; Migemoを利用できる環境であればMigemoを使う
+  (when (and (executable-find "cmigemo")
+	     (requie 'migemo nil t))
+    (setq moccur-use-migemo t)))
+
+;; moccur-editの設定
+(require 'moccur-edit nil t)
+
+;; wgrepの設定
+(require 'wgrep nil t)
