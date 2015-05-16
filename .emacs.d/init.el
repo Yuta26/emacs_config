@@ -262,3 +262,51 @@
 
 ;; wgrepの設定
 (require 'wgrep nil t)
+
+;; undohistの設定
+(when (require 'undohist nil t)
+  (undohist-initialize))
+
+;; undo-treeの設定
+(when (require 'undo-tree nil t)
+  (global-undo-tree-mode))
+
+;; point-undoの設定
+(when (require 'point-undo nil t)
+  ;; (define-key global-map [f5] 'point-undo)
+  ;; (define-key global-map [f6] 'point-redo)
+  ;; 筆者のオススメのキーバインド
+  (define-key global-map (kbd "M-[") 'point-undo)
+  (define-key global-map (kbd "M-]") 'point-redo))
+
+;; elscreenの設定
+(require 'elscreen)
+(elscreen-set-prefix-key "\C-t")
+(elscreen-start)
+
+;; howmメモ保存の場所
+(setq howm-directory (concat user-emacs-directory "howm"))
+;; howm-menuの言語を日本語に
+(setq howm-menu-lang 'ja)
+;; howmメモを1日1ファイルにあるう
+;; (setq howm-file-name-format "%Y/%m/%Y-%m-%d.howm")
+;; howm-modeを読み込む
+(when (require 'howm-mode nil t)
+  ;; C-c,,でhowm-menuを起動
+  (define-key global-map (kbd "C-c ,,") 'howm-menu))
+
+;; hownメモを保存と同時に閉じる
+(defun howm-save-buffer-and-kill ()
+  "hownメモを保存と同時に閉じます。"
+  (interactive)
+  (when (and (buffer-file-name)
+	     (string-match "\\.hown" (buffer-file-name)))
+    (save-buffer)
+    (kill-buffer nill)))
+
+;; C-c C-cでメモの保存と同時にバッファを閉じる
+(define-key howm-mode-map (kbd "C-c C-c") 'howm-save-buffer-and-kill)
+
+;; cua-modeの設定
+(cua-mode t) ; cua-modeをオン
+(setq cua-enable-cua-keys nil) ; CUAキーバインドを無効にする
