@@ -310,3 +310,41 @@
 ;; cua-modeの設定
 (cua-mode t) ; cua-modeをオン
 (setq cua-enable-cua-keys nil) ; CUAキーバインドを無効にする
+
+;; cssm-modeの設定
+(defun css-mode-hooks ()
+  "css-mode hooks"
+  ;; インデントをCスタイルにする
+  (setq cssm-indent-function #'cssm-c-style-indenter)
+  ;; インデント幅を2にする
+  (setq cssm-indent-level 2)
+  ;; インデントにタブ文字を使わない
+  (setq-default indent-tabs-mode nil)
+  ;; 閉じカッコの前に改行を挿入する
+  (setq cssm-newline-before-closing-bracket t))
+
+(add-hook 'css-mode-hook 'css-mode-hooks)
+
+;; 指定行数へのジャンプに関するエイリアスの設定 M-x gで行数指定が可能に
+(defalias 'g 'goto-line)
+
+;; yaml-modeの設定
+(when (require 'yaml-mode nil t)
+  (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
+
+
+;; 括弧自動補完機能
+(defun electric-pair ()
+  "If at end of line, insert character pair without surrounding spaces.
+Otherwise, just insert the typed character."
+  (interactive)
+  (if (eolp) (let (parens-require-spaces) (insert-pair)) (self-insert-command 1)))
+
+(add-hook 'php-mode-hook
+              (lambda ()
+                ;; (define-key php-mode-map "\"" 'electric-pair)
+                ;; (define-key php-mode-map "\'" 'electric-pair)
+                (define-key php-mode-map "(" 'electric-pair)
+                (define-key php-mode-map "[" 'electric-pair)
+                (define-key php-mode-map "{" 'electric-pair)))
+
