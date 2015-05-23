@@ -1,3 +1,5 @@
+; githubからpullしemacsを設定する際は、~/.emacs.d/conf ~/.emacs.d/public_repos の2つのディレクトリの作成が必要
+
 ; 言語を日本語にする
 (set-language-environment 'Japanese)
 ; 極力UTF-8とする
@@ -14,11 +16,12 @@
 	    (normal-top-level-add-subdirs-to-load-path))))))
 
 ;; 引数のディレクトリとそのサブディレクトリをload-pathに追加
-(add-to-load-path "elisp" "conf" "public_repos")
+;; (add-to-load-path "elisp" "conf" "public_repos")
+(add-to-load-path "elisp")
 
 ;; http://coderepos.org/share/browser/lang/elisp/init-loader/init-loader.el
-(require 'init-loader)
-(init-loader-load "~/.emacs.d/conf") ; 設定ファイルがあるディレクトリを指定
+;; (require 'init-loader)
+;; (init-loader-load "~/.emacs.d/conf") ; 設定ファイルがあるディレクトリを指定
 
 ;; 画面移動を↓で可能に
 (global-set-key (kbd "C-c <left>")  'windmove-left)
