@@ -76,25 +76,10 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; (defface my-hl-line-face
-  ;; 背景がdarkならば背景色を紺に
-;; '((((class color) (background dark))
-;;    (:background "NavBlue" t))
-    ;; 背景がlightならば背景色を緑に
-;;    (((class color) (background light))
-;;     (:background "LightGoldenrodYellow" t))
-;;    (t (:bold t)))
-;;  "hl-line's my face")
-;; (setq hl-line-face 'my-hl-line-face)
-;; (global-hl-line-mode t)
-
 ;; paren-mode : 対応するカッコを強調して表示する
 (setq show-paren-delay 0) ; 表示までの秒数。初期値は、0.125
 (show-paren-mode t) ; 有効化
 (setq show-paren-style 'parenthesis) ; 対応する括弧だけをハイライト
-
-;; 現在行をハイライトする
-;; (global-hl-line-mode t)
 
 ;; ファイルが #! から始まる場合、+xを付けて保存する
 (add-hook 'after-save-hook
@@ -152,20 +137,6 @@
 
 ;; M-fにanything-for-filesを割り当てる
 (define-key global-map (kbd "M-f") 'anything-for-files)
-
-;; 要color-moccur(まだインストールできていない）
-;; (when (require 'anything-c-moccur nil t)
-;;   (setq
-   ;; anything-c-moccur用 `anything-idle-delay'
-;;    anything-c-moccur-anything-idle-delay 0.1
-   ;; バッファの情報をハイライトする
-;;   anything-c-moccur-higligt-info-line-flag t
-   ;; 現在選択中の候補の位置をほかのwindowに表示する
-;;    anything-c-moccur-enable-auto-look-flag t
-   ;; 起動時にポイントの位置の単語を初期パターンにする
-;;   anything-c-moccur-enable-initial-pattern t)
-  ;; C-M-oにanything-c-moccur-occur-by-moccurを割り当てる
-;;   (global-set-key (kbd "C-M-o") 'anything-c-moccur-occur-by-moccur))
 
 ;; パッケージに依存しているパッケージを同時にインストールするための設定
 ;; (参照)http://rubikitch.com/package-initialize/
@@ -279,11 +250,6 @@
   (define-key global-map (kbd "M-[") 'point-undo)
   (define-key global-map (kbd "M-]") 'point-redo))
 
-;; elscreenの設定
-(require 'elscreen)
-(elscreen-set-prefix-key "\C-t")
-(elscreen-start)
-
 ;; howmメモ保存の場所
 (setq howm-directory (concat user-emacs-directory "howm"))
 ;; howm-menuの言語を日本語に
@@ -348,3 +314,60 @@ Otherwise, just insert the typed character."
                 (define-key php-mode-map "[" 'electric-pair)
                 (define-key php-mode-map "{" 'electric-pair)))
 
+;; flymakeの設定
+(require 'flymake)
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (flymake-mode t)))
+
+;; HTML用のFlymakeの設定
+(defun flymake-html-init ()
+  (list "tidy" (list (flymake-init-create-temp-buffer-copy
+		      'flymake-create-temp-inplace))))
+
+(add-to-list 'flymake-allowed-file-name-masks
+	     '("\\.html\\'" flymake-html-init))
+
+;; tidy error patttern
+(add-to-list 'flymake-err-line-patterns
+	 '("line \\([0-9]+\\) column \\([0-9]+\\) - \\(Warning\\|Error\\); \\(.*\\)"
+	   nil 1 2 4))
+
+;; JS用Flymakeの初期化関数の定義
+(defun flymake-jsl-init ()
+  (list "jsl" (list "-process" (flymake-init-create-temp-buffer-copy
+				'flymake-create-temp-inplace))))
+
+;; Javascript編集でFlymakeを起動する
+(add-to-list 'flymake-allowed-file-name-masks
+	     '("\\.js\\'" flymake-jsl-init))
+
+(add-to-list 'flymake-err-line-patterns
+	     '("^\\(.+\\)(\\([0-9]+\\)): \\(.*warning\\|SyntaxError\\): \\(.*\\)"
+	       1 2 nil 4))
+
+;; anything-for-tagsコマンドを作成
+(defun anything-for-tags ()
+  "Preconfigured `anything' for anything-for-tags."
+  (interactive)
+  (anything anything-for-tags
+	    (thing-at-point 'symbol)
+	    nil nil nil "*anything for tags*"))
+
+;; M-tにanything-for-tagsを割り当て
+(define-key global-map (kbd "M-t") 'anything-tags-for)
+
+(require 'grep-edit)
+
+(require 'helm-config)
+(require 'helm-gtags)
+
+(add-hook 'php-mode-hook 'helm-gtags-mode)
+
+;; key bindings
+(add-hook 'helm-gtags-mode-hook
+          '(lambda ()
+              (local-set-key (kbd "M-t") 'helm-gtags-find-tag)
+              (local-set-key (kbd "M-r") 'helm-gtags-find-rtag)
+              (local-set-key (kbd "M-s") 'helm-gtags-find-symbol)
+              (local-set-key (kbd "C-t") 'helm-gtags-pop-stack)))

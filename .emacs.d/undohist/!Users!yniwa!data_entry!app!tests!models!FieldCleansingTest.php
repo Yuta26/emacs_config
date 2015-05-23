@@ -1,0 +1,8 @@
+
+((digest . "24b0c47798a1d595196d3ae0478a14ce") (undo-list nil (#("
+" 0 1 (fontified t)) . 1011) ((marker) . -1) ((marker) . -1) ((marker) . -1) nil (#("<<<<<<< HEAD" 0 8 (fontified t) 8 12 (fontified t face font-lock-constant-face)) . 1011) ((marker*) . 12) ((marker) . -12) ((marker) . -12) nil (#("
+" 0 1 (fontified t)) . 1824) ((marker) . -1) ((marker) . -1) ((marker) . -1) nil (#("
+" 0 1 (fontified t)) . 1824) ((marker) . -1) ((marker) . -1) ((marker) . -1) nil (#("=======" 0 7 (fontified t)) . 1824) ((marker) . -7) nil (#(">>>>>>> r60972_staged_cleansing" 0 31 (fontified t)) . 1832) ((marker) . -31) nil (#("
+" 0 1 (fontified t)) . 1832) ((marker) . -1) ((marker) . -1) ((marker) . -1) nil (#("        $this->assertNotNull($this->fieldCleansing->evaluation_stage);" 0 8 (fontified t) 8 9 (fontified t face default) 9 13 (fontified t face font-lock-constant-face) 13 15 (fontified t) 15 28 (fontified t face default) 28 29 (fontified t) 29 30 (fontified t face default) 30 34 (fontified t face font-lock-constant-face) 34 36 (fontified t) 36 50 (fontified t face font-lock-variable-name-face) 50 52 (fontified t) 52 68 (fontified t face font-lock-variable-name-face) 68 70 (fontified t)) . 1832) ((marker) . -70) nil (#("
+" 0 1 (fontified t)) . 1832) ((marker) . -1) ((marker) . -1) ((marker) . -1) nil (#("    {" 0 5 (fontified t)) . 1832) ((marker) . -5) nil (#("
+" 0 1 (fontified t)) . 1832) ((marker) . -1) ((marker) . -1) nil (#("    public function testDelegateEvaluationStage()" 0 4 (fontified t) 4 10 (fontified t face font-lock-keyword-face) 10 11 (fontified t) 11 19 (fontified t face font-lock-keyword-face) 19 20 (fontified t) 20 47 (fontified t face font-lock-function-name-face) 47 49 (fontified t)) . 1832) (t 21851 61045 0 0)))
