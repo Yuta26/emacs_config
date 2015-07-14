@@ -1,0 +1,47 @@
+
+((digest . "d41d8cd98f00b204e9800998ecf8427e") (undo-list nil ("<レビュー#61644>=>修正依頼
+(コード確認)
+belongsToMany()とはどのようなことか？
+taskからtaskColumnを通してjobColumnを取得する。
+
+task_columnとjob_column_idを持っている。
+task_columnには、belongstoできるものが2つある。
+でrelationは何を取得しているのか？
+
+★belongsToManyの挙動
+task->taskColumn->jobColumn
+belongToManyは
+・task->taskColumn(hasMany)
+・taskColumn->jobColumn(belongsTo)
+
+(挙動確認) => 確認中
+・若崎に仕様を確認。
+タスクにカラムを登録されていない場合は、{{}}が表示されるまでもなく、
+何も表示されない挙動が正しい。
+
+OK・taskColumnが登録されていないときは、\"{{\"と入力しても、何も表示されない。
+OK・taskColumnが登録されているときは、\"{{\"と入力したら、columnNameが表示される。
+フィールド編集画面
+・タイトル => DB格納完了
+・ヒント => DB格納完了
+・プレースホルダー => DB格納完了
+・デフォルト値 => DB格納完了
+
+
+・タスクディスクリプション => DB格納完了
+
+作業画面で変数が表示されているか？
+=> OK
+
+
+(grunt) => OK
+
+" . 1) ((marker) . -19) ((marker) . -19) ((marker) . -27) ((marker) . -27) ((marker) . -54) ((marker) . -54) ((marker) . -90) ((marker) . -90) ((marker) . -91) ((marker) . -91) ((marker) . -124) ((marker) . -124) ((marker) . -159) ((marker) . -159) ((marker) . -181) ((marker) . -181) ((marker) . -182) ((marker) . -182) ((marker) . -200) ((marker) . -200) ((marker) . -228) ((marker) . -228) ((marker) . -242) ((marker) . -242) ((marker) . -269) ((marker) . -269) ((marker) . -303) ((marker) . -303) ((marker) . -304) ((marker) . -304) ((marker) . -318) ((marker) . -318) ((marker) . -329) ((marker) . -329) ((marker) . -366) ((marker) . -366) ((marker) . -382) ((marker) . -382) ((marker) . -383) ((marker) . -383) ((marker) . -430) ((marker) . -430) ((marker) . -484) ((marker) . -484) ((marker) . -494) ((marker) . -494) ((marker) . -510) ((marker) . -510) ((marker) . -525) ((marker) . -525) ((marker) . -545) ((marker) . -545) ((marker) . -563) ((marker) . -563) ((marker) . -564) ((marker) . -564) ((marker) . -565) ((marker) . -565) ((marker) . -589) ((marker) . -589) ((marker) . -590) ((marker) . -590) ((marker) . -608) ((marker) . -608) ((marker) . -614) ((marker) . -614) ((marker) . -615) ((marker) . -615) ((marker) . -616) ((marker) . -616) ((marker) . -630) ((marker) . -630) ((marker) . -631) 632 nil (">" . -1) nil (1 . 2) (t 21860 26533 0 0) nil ("
+" . -631) ((marker) . -1) nil ("
+" . -632) ((marker) . -1) nil ("(" . -633) ((marker) . -1) nil ("ま" . -634) ((marker) . -1) nil ("と" . -635) ((marker) . -1) nil ("め" . -636) ((marker) . -1) nil (")" . -637) ((marker) . -1) ((marker*) . 1) ((marker) . -1) nil ("<belongsToManyの挙動>
+task->taskColumn->jobColumn
+belongToManyは
+・task->taskColumn(hasMany)
+・taskColumn->jobColumn(belongsTo)" . 639) ((marker) . -121) ((marker*) . 1) ((marker) . -121) ((marker*) . 11) ((marker) . -111) 760 nil (656 . 657) nil (639 . 640) nil ("★" . -639) nil (638 . 639) nil (638 . 758) nil (634 . 638) ("まとめ" . -634) (634 . 637) ("まとｍ" . -634) (634 . 637) ("まと" . -634) (634 . 636) ("まｔ" . -634) (634 . 636) ("ま" . -634) (634 . 635) ("ｍ" . -634) (633 . 635) (t 21859 47159 0 0) nil (628 . 630) nil ("確" . -628) nil ("認" . -629) nil ("中" . -630) (t 21859 47149 0 0) nil (433 . 434) nil ("・" . -433) (433 . 434) 434 nil ("
+" . -387) nil (387 . 388) nil (386 . 387) ("・" . -386) (384 . 387) nil (428 . 430) nil ("
+" . -478) (t 21859 47084 0 0) nil undo-tree-canary))

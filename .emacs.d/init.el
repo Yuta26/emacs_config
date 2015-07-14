@@ -33,7 +33,7 @@
 (keyboard-translate ?\C-h ?\C-?)
 
 ;; 折り返しトグルコマンド
-(define-key global-map (kbd "C-c l") 'toggle-truncate-lines)
+(define-key global-map (kbd "C-l") 'toggle-truncate-lines)
 
 ;; "C-t" でウィンドウを切り替える。初期値はtranspose-chars
 (define-key global-map (kbd "C-t") 'other-window)
@@ -367,3 +367,5 @@ Otherwise, just insert the typed character."
 
 (add-hook 'php-mode-hook 'helm-gtags-mode)
 
+;; "C-c"でコメントアウト
+(global-set-key (kbd "C-c") 'comment-or-uncomment-region)
